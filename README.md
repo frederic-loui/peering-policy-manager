@@ -17,6 +17,7 @@ Vizualization unit: Monthly / Weekly / Daily
 ## List of peers 
 * from network configuration
 * From CRM software for customer peer
+
 `==> Comparison of the 2 lists above`
 
 4 categories: 
