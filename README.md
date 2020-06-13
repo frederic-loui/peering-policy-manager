@@ -50,17 +50,17 @@ With information
 ## Accounting/Finance vizualization
 * Cost per peer category: Transit/IXP/PNI
 * Aggregated cost per week / month / year of the whole peering activity: Transit/IXP/PNI
-
-## A looking glass dashboard
+ 
+## A looking glass dashboard (use of [FreeRouter](http://freerouter.nop.hu/))
 * Provide local looking glass server
 * Provide a list of SP looking glass ([Peeringdb](https://www.peeringdb.com/)?)
 
-## A BMP server
+## A BMP server (use of [FreeRouter](http://freerouter.nop.hu/))
 * ebgp session
 * ibgp session monitoring(?)
 * BGP hijack detection (?)
 
-## ROA/RPKI
+## ROA/RPKI (use of [FreeRouter](http://freerouter.nop.hu/))
 * ROA/RPKI passive check for notification to an active system
 * RIR integration (?)
 
