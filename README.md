@@ -53,6 +53,10 @@ With information
 * Provide local looking glass server
 * Provide a list of SP looking glass ([Peeringdb](https://www.peeringdb.com/)?)
 
+## A BMP server
+* ebgp session
+* ibgp session monitoring(?)
+
 # Authentication
 * OAUTH
 * OpenIdConnect
