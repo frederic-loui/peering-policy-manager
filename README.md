@@ -56,6 +56,11 @@ With information
 ## A BMP server
 * ebgp session
 * ibgp session monitoring(?)
+* BGP hijack detection (?)
+
+## ROA/RPKI
+* ROA/RPKI passive check for notification to an active system
+* RIR integration (?)
 
 # Authentication
 * OAUTH
