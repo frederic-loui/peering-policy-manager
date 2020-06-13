@@ -17,27 +17,27 @@ Vizualization unit: Monthly / Weekly / Daily
 `==> Comparison of the 2 lists above`
 
 4 categories: 
-Customer relationship BGP Peering (might not come all from PeeringDB as come customer can have RFC1918 ASN)
-Peering relationship BGP Peering
-Private Peering relationship
-Transit peering relationship
+* Customer relationship BGP Peering (might not come all from PeeringDB as come customer can have RFC1918 ASN)
+* Peering relationship BGP Peering
+* Private Peering relationship
+* Transit peering relationship
 
 By location: 
 * with data coming from PeeringDB
-* with data coming from DCIM system 
+* with data coming from DCIM system
 
 With information
-IPv4/IPv6 interconnect
-remote ASN
+* IPv4/IPv6 interconnect.remote-peer
+* remote ASN
 
 ## Network metrology per peer
 * From netflow/IPFIX/Sflow accounting system (or raw data)
 * real traffic with automatic 95th percentile computation
 
 ## Top <x> ASN (<x> to be configurable)
-dashboard in list form
-dashboard in graphical form such as PIE, [Radial Stacked bar](https://observablehq.com/@d3/radial-stacked-bar-chart), [SANKEY DIAGRAM](https://observablehq.com/@d3/sankey-diagram)
-dahsboard per category (Peer, Transit, PNI)
+* dashboard in list form
+* dashboard in graphical form such as PIE, [Radial Stacked bar](https://observablehq.com/@d3/radial-stacked-bar-chart), [SANKEY DIAGRAM](https://observablehq.com/@d3/sankey-diagram)
+* dahsboard per category (Peer, Transit, PNI)
 
 ## Geographic vizualization
 * geo-map (OpenStreetMap like vizualization of peerings)
@@ -49,10 +49,14 @@ dahsboard per category (Peer, Transit, PNI)
 * Aggregated cost per week / month / year of the whole peering activity: Transit/IXP/PNI
 
 # Authentication
-OAUTH/OpenIdConnect/SAML/local
+* OAUTH
+* OpenIdConnect
+* SAML
+* local
+
 # Authorization
-Adminitsrator: R/W
-User: R/O
+* Adminitsrator: R/W
+* User: R/O
 
 # Implementation platform/framework
 * Web application
