@@ -42,7 +42,7 @@ With information
 ## Geographic vizualization
 * geo-map ([OpenStreetMap](https://www.openstreetmap.org/) like vizualization of peerings)
 * [Geo-map traffic concentration](https://observablehq.com/@d3/bubble-map)
-* Geo map traffic level quantization
+* [Geo map traffic level quantization](https://observablehq.com/@d3/choropleth)
 
 ## Accounting/Finance vizualization
 * Cost per peer category: Transit/IXP/PNI
