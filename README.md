@@ -1,16 +1,17 @@
 # Peering Policy Manager
-A comprehensive peering policy tools/dashboard for ASN/BGP peering management tool set
-95th percentile is used to expressed Bandwidth consumption even though network accounting data reflect the actual traffic level
+A comprehensive peering policy too set for ASN/BGP peering management
 
 # Data source
 * [PeeringDB](https://www.peeringdb.com/) ASN record
 * Internet Network router configuration retrieved by a CMDB software such as [Oxidized](https://github.com/ytti/oxidized) or [Rancid](https://shrubbery.net/rancid/)
 * Network accounting data collected via Netflow/IPFIX/Sflow
 * Network Cost parameter (IXP OTC/MRC, Transit OTC/MRC, PNI OTC/NRC)
+* 95th percentile is used to expressed Bandwidth consumption 
+* network accounting data reflect the actual traffic level
 
 Vizualization unit: Monthly / Weekly / Daily
 
-# Peering Policy Manager (PPM) Tools set
+# Peering Policy Manager (PPM) Tool set
 ## List of peers 
 * from network configuration)
 * From CRM software for customer peer
@@ -47,6 +48,10 @@ With information
 ## Accounting/Finance vizualization
 * Cost per peer category: Transit/IXP/PNI
 * Aggregated cost per week / month / year of the whole peering activity: Transit/IXP/PNI
+
+## A looking glass dashboard
+* Provide local looking glass server
+* Provide a list of SP looking glass ([Peeringdb](https://www.peeringdb.com/)?)
 
 # Authentication
 * OAUTH
