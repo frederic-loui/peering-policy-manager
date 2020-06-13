@@ -1,5 +1,5 @@
 # Peering Policy Manager
-A comprehensive peering policy tool set for ASN/BGP peering management.
+A comprehensive set of peering policy tools for ASN/BGP peering management.
 
 Made by Peering Managers
 
