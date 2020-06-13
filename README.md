@@ -41,7 +41,7 @@ With information
 
 ## Geographic vizualization
 * geo-map ([OpenStreetMap](https://www.openstreetmap.org/) like vizualization of peerings)
-* Geo-map concentration
+* [Geo-map traffic concentration](https://observablehq.com/@d3/bubble-map)
 * Geo map traffic level quantization
 
 ## Accounting/Finance vizualization
