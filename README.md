@@ -1,5 +1,6 @@
 # Peering Policy Manager
-A comprehensive peering policy too set for ASN/BGP peering management
+A comprehensive peering policy tool set for ASN/BGP peering management.
+Made by Peering Managers
 
 # Data source
 * [PeeringDB](https://www.peeringdb.com/) ASN record
