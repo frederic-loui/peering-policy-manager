@@ -23,8 +23,8 @@ Vizualization unit: Monthly / Weekly / Daily
 * Transit peering relationship
 
 By location: 
-* with data coming from PeeringDB
-* with data coming from DCIM system
+* with data coming from [PeeringDB](https://www.peeringdb.com/)
+* with data coming from [DCIM](https://en.wikipedia.org/wiki/Data_center_management#Data_center_infrastructure_management) system
 
 With information
 * IPv4/IPv6 interconnect.remote-peer
@@ -40,7 +40,7 @@ With information
 * dahsboard per category (Peer, Transit, PNI)
 
 ## Geographic vizualization
-* geo-map (OpenStreetMap like vizualization of peerings)
+* geo-map ([OpenStreetMap](https://www.openstreetmap.org/) like vizualization of peerings)
 * Geo-map concentration
 * Geo map traffic level quantization
 
