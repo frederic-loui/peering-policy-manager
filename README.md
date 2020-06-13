@@ -20,7 +20,8 @@ Vizualization unit: Monthly / Weekly / Daily
 `==> Comparison of the 2 lists above`
 
 4 categories: 
-* Customer relationship BGP Peering (might not come all from PeeringDB as come customer can have RFC1918 ASN)
+* Customer relationship BGP Peering 
+(might not come all from [PeeringDB](https://www.peeringdb.com/) as come customer can have RFC1918 ASN)
 * Peering relationship BGP Peering
 * Private Peering relationship
 * Transit peering relationship
