@@ -52,6 +52,7 @@ With information
 ## Accounting/Finance vizualization
 * Cost per peer category: Transit/IXP/PNI
 * Aggregated cost per week / month / year of the whole peering activity: Transit/IXP/PNI
+* Peering Policy dahsboard
  
 ## A looking glass dashboard (use of [FreeRouter](http://freerouter.nop.hu/))
 * Provide local looking glass server
