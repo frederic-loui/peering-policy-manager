@@ -58,7 +58,7 @@ def _getClassName(instance):
 
 
 class PPM(Thread):
-    def __init__(self, threadID, cfg_dir):
+    def __init__(self, threadID, cfg_dir, json_dir):
         Thread.__init__(self)
         self.threadID = threadID
         self.name = _getClassName(self)
@@ -66,6 +66,7 @@ class PPM(Thread):
         self.die=False
         self.cfg = ""
         self.cfg_dir = cfg_dir
+        self.json_dir = json_dir
         self.cfg_type = CONFIG_TYPE_IOSXR
 
     def run(self):
@@ -123,7 +124,7 @@ class PPM(Thread):
                 ACTIVE_PEERS.append(PEER)
 
         logger.warning("%s" % (ACTIVE_PEERS))
-        with open("../json/%s.json" % (re.sub(r".cfg$","",cfg)), 'w') as outjsonfile:
+        with open("%s/%s.json" % (self.json_dir,re.sub(r".cfg$","",cfg)), 'w') as outjsonfile:
             json.dump(ACTIVE_PEERS, outjsonfile)
 
     def getAsnPeerListFromIosXR(self,cfg):
@@ -152,10 +153,8 @@ class PPM(Thread):
                 ACTIVE_PEERS.append(PEER)
 
         logger.warning("%s" % (ACTIVE_PEERS))
-        with open("../json/%s.json" % (re.sub(r".cfg$","",cfg)), 'w') as outjsonfile:
+        with open("%s/%s.json" % (self.json_dir,re.sub(r".cfg$","",cfg)), 'w') as outjsonfile:
             json.dump(ACTIVE_PEERS, outjsonfile)
-        #with open("%s.json" % (cfg), 'w') as outjsonfile:
-        #    json.dump(ACTIVE_PEERS, outjsonfile)
 
 def str2bool(v):
     if isinstance(v, bool):
@@ -200,8 +199,15 @@ if __name__ == "__main__":
         type=str,
         action="store",
         required=False,
-        default="./cfg",
-
+        default="%s/ppm-run/cfg" % os.getenv("HOME"),
+    )
+    parser.add_argument(
+        "--equipment-json-dir",
+        help="Path to the directory where the configs are stored",
+        type=str,
+        action="store",
+        required=False,
+        default="%s/ppm-run/json" % os.getenv("HOME"),
     )
     parser.add_argument(
         "--parsing-interval",
@@ -219,7 +225,8 @@ if __name__ == "__main__":
 
         #cfg = "tour-rtr-091"
 
-        ppm = PPM(1,args.equipment_config_dir,)
+        ppm = PPM(1,args.equipment_config_dir,
+                    args.equipment_json_dir,)
 
         ppm.daemon=True
         ppm.start()
