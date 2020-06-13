@@ -31,7 +31,7 @@ By location:
 * with data coming from [DCIM](https://en.wikipedia.org/wiki/Data_center_management#Data_center_infrastructure_management) system
 
 With information
-* IPv4/IPv6 interconnect.remote-peer
+* IPv4/IPv6 interconnect/remote-peer
 * remote ASN
 
 ## Network metrology per peer
