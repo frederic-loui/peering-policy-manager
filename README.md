@@ -15,7 +15,7 @@ Vizualization unit: Monthly / Weekly / Daily
 
 # Peering Policy Manager (PPM) Tool set
 ## List of peers 
-* from network configuration)
+* from network configuration
 * From CRM software for customer peer
 `==> Comparison of the 2 lists above`
 
