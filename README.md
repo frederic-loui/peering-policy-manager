@@ -79,7 +79,7 @@ With information
 # Implementation platform/framework
 * Polocy Policy Manager Web application should only serve pre-computed report (daily,weekly,monthly)
 * REST API serving PPM client apps
-* REST API _**MUST**_ as much as possible consume existing external web data source (PeeringBD, Oxidized, DCIM, IPAM, Netflow)
+* REST API _**MUST**_ as much as possible consume existing external data source (PeeringBD, Oxidized, DCIM, IPAM, Netflow)
 * All client type mobile/tablet/laptop/desktop
 
 `=> [FLUTTER](https://flutter.dev/) ?`
