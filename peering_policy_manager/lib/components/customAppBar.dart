@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
+  final String title;
+
+  CustomAppBar({this.title});
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: IconButton(icon: Icon(Icons.menu, color: Theme.of(context).accentColor)),
-      title: Text('Peering Policy Manager'),
+      title: Text(title),
       actions: <Widget>[
         IconButton(icon: Icon(Icons.tune)),
       ],

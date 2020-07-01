@@ -25,7 +25,6 @@ class MyTheme
         brightness: Brightness.light,
         primaryColor: Colors.indigo[800],
         accentColor: Colors.white,
-
         // Define the default font family.
         fontFamily: 'Georgia',
 
