@@ -1,25 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:peeringpolicymanager/screens/home.dart';
-import 'package:peeringpolicymanager/theme/theme.dart';
 import 'package:peeringpolicymanager/components/customAppBar.dart';
 import 'package:peeringpolicymanager/components/customBottomNavigationBar.dart';
-import 'package:peeringpolicymanager/components/customCard.dart';
-import 'package:peeringpolicymanager/models/router.dart';
-import 'package:peeringpolicymanager/routes/routes.dart';
 import 'package:peeringpolicymanager/models/asn.dart';
+import 'package:peeringpolicymanager/models/api.dart';
+import 'dart:js' as js;
 
 import 'dart:async';
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 
 class RouterState extends State<RouterScr> {
-  static String jsonString = '[{"asn": "2445", "remote_neighbors": [{"local_ip": "193.51.186.29", "peer_ip": "193.51.186.29", "subnet": "193.51.186.28", "cidr": "30", "interface": "TenGigE0/0/0/1.200"}, {"local_ip": "2001:660:3000:1000:10:0:6:5052", "peer_ip": "2001:660:3000:1000:10:0:6:5052", "subnet": "2001:660:3000:1000::", "cidr": "64", "interface": "TenGigE0/0/0/1.200"}]}]';
-  static final jsonresponse = json.decode(jsonString);
+  final API api = API();
 
-  static var asn = Asn.fromJson(jsonresponse[0]);
+  Future<List<Asn>> futureAsn;
+  List<Asn> asn_vals;
+
+  @override
+  initState() {
+    super.initState();
+      //Get ASN peers by router name
+      futureAsn = api.fetchAsnByRouter("par2-003131");
+      futureAsn.then((result)
+      {
+        asn_vals = result;
+        print("Debug asn_val "+ asn_vals[0].asn.toString());
+      });
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -27,45 +32,134 @@ class RouterState extends State<RouterScr> {
     String args = ModalRoute.of(context).settings.arguments;
 
     if(args == null)
-      {
-        args = "Not found";
-      }
+    {
+      args = "Not found";
+    }
+
 
     return SafeArea(
-      child: Scaffold(
-        appBar: CustomAppBar(title: "Router $args",),
-        body:
-        new Container(
-          alignment: Alignment.center,
-          child: new Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Divider(color: Colors.grey,
-                  height: 1,
-                  thickness: 1),
-              new Expanded(
-                child : new GridView.builder(
-                  itemCount: 1,
-                  itemBuilder: (context, index){
-                    return CustomCard(
-                        title: asn.asn,
-                        subtitle: "",
-                        leading: Icons.router,
-                    );
-                  },
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3
-                  ),
-                ),
-              ),
-            ],
+        child: Scaffold(
+          appBar: CustomAppBar(title: "Router $args",),
+          body:
+          new FutureBuilder<List<Asn>>(
+              future: futureAsn,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return new SingleChildScrollView(
+                      padding: EdgeInsets.all(30),
+                      child: Container(
+                          child : ExpansionTile(
+                            title: Text("ASN Peers",),
+                            children : getParentTreeAS(asn_vals, context),
+                          )
+                      )
+                  );
+                }
+                else if (snapshot.hasError) {
+                  return Text("${snapshot.error}");
+                }
+                return CircularProgressIndicator();
+              }
           ),
-        ),
-        bottomNavigationBar: CustomBottomNavigationBar(pop: true, left_button: "Previous",),
-      )
+          bottomNavigationBar: CustomBottomNavigationBar(pop: true, left_button: "Previous",),
+        )
     );
   }
+}
+
+List<Widget> getParentTreeAS(List<Asn> asns, var context)
+{
+  print(asns.toString());
+  List<Widget> listParentTree = new List<Widget>();
+  List<Widget> listasn = new List<Widget>();
+  for(var asn_length = 0; asn_length < asns.length; asn_length++) {
+    listParentTree = getParentTree(asns[asn_length].remoteNeighbors);
+    listParentTree.add(Padding(
+        padding: EdgeInsets.only(left: 30),
+        child: ListTile(
+          title: new Text("Peering DB "+asns[asn_length].asn),
+          onTap: () { _launchURL("https://www.peeringdb.com/search?q="+asns[asn_length].asn); },
+        )
+    ));
+
+    listasn.add(
+        new Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: ExpansionTile(
+        backgroundColor: Theme
+            .of(context)
+            .accentColor
+            .withOpacity(0.050),
+      title: Text("   "+asns[asn_length].asn),
+      children: listParentTree
+      ),
+    ));
+
+
+  }
+  return listasn;
+}
+
+List<Widget> getParentTree(List<RemoteNeighbors> rn)
+{
+  List<Widget> listrn = new List<Widget>();
+  for(var y = 0; y < rn.length; y++){
+    listrn.add(
+      new Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: ExpansionTile(
+        title: Text("Remote Neighbor " + (y + 1).toString()),
+        children: getChildTree(rn[y]),
+      )
+    ));
+
+  }
+
+
+  return listrn;
+}
+
+List<Widget> getChildTree(RemoteNeighbors rn)
+{
+  List<Widget> listrnvalue = new List<Widget>();
+
+  listrnvalue.add(
+      Padding(
+        padding: EdgeInsets.only(left: 30),
+        child: ListTile(
+            title: Text("Subnet : " + rn.subnet + "/" + rn.cidr),
+      )
+  ));
+
+  listrnvalue.add(
+      Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: ListTile(
+          title: Text("Peer IP : " + rn.peerIp),
+      ))
+  );
+
+  listrnvalue.add(
+      Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: ListTile(
+          title: Text("Local IP : " + rn.localIp),
+        )
+      ));
+
+  listrnvalue.add(
+      Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: ListTile(
+          title: Text("Interface : " + rn.interface),
+        )
+      ));
+
+  return listrnvalue;
+}
+
+_launchURL(url) {
+  js.context.callMethod("open", [url]);
 }
 
 class RouterScr extends StatefulWidget {

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:peeringpolicymanager/components/customAppBar.dart';
 import 'package:peeringpolicymanager/components/customBottomNavigationBar.dart';
@@ -5,6 +7,8 @@ import 'package:peeringpolicymanager/components/customCard.dart';
 import 'package:peeringpolicymanager/models/router.dart';
 import 'package:peeringpolicymanager/models/api.dart';
 import 'package:peeringpolicymanager/routes/routes.dart';
+
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 
 class RoutersState extends State<Routers> {
@@ -17,20 +21,18 @@ class RoutersState extends State<Routers> {
   Router routers;
 
 
-
-
   @override
   initState() {
     super.initState();
     futureRouter = api.fetchRouters();
     futureRouter.then((result)
-      {
-        setState(() {
-          routers = result;
-          _searchList = routers.routers;
-          print("Debug searchlist $_searchList");
-        });
-      }
+    {
+      setState(() {
+        routers = result;
+        _searchList = routers.routers;
+        print("Debug searchlist $_searchList");
+      });
+    }
     );
 
     myController.addListener(() {
@@ -55,80 +57,82 @@ class RoutersState extends State<Routers> {
   @override
   Widget build(BuildContext context) {
 
-    return SafeArea(
-        child: Scaffold(
-          appBar: CustomAppBar(title: "Routers",),
-          body:
-          new FutureBuilder<Router>(
-          future: futureRouter,
-          builder: (context, snapshot) {
-            if (snapshot.hasData ) {
-              return Container(
-                alignment: Alignment.center,
-                child: new Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    new Padding(
-                      padding: new EdgeInsets.all(20.0),
-                      child: new Material(
-                        elevation: 5.0,
-                        child: TextField(
-                          decoration: InputDecoration(
-                              labelText: "Search",
-                              hintText: "Search a router",
-                              prefixIcon: Icon(Icons.search),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(5.0))
-                              )
-                          ),
-                          controller: myController,
-                        ),
-                      ),
-
-                    ),
-                    new Divider(color: Colors.grey,
-                        height: 1,
-                        thickness: 1),
-                    new Expanded(
-                      child: new GridView.builder(
-                        itemCount: _searchList.length,
-                        itemBuilder: (context, index) {
-                          return new InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(context,
-                                Routes.routerscr,
-                                arguments: _searchList[index],
-                              );
-                            },
-                            child: CustomCard(
-                              title: _searchList[index],
-                              subtitle: routers.vendor(_searchList[index]),
-                              leading: Icons.router,
+      return SafeArea(
+          child: Scaffold(
+            appBar: CustomAppBar(title: "Routers",),
+            body:
+            new FutureBuilder<Router>(
+                future: futureRouter,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Container(
+                      alignment: Alignment.center,
+                      child: new Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          new Padding(
+                            padding: new EdgeInsets.all(20.0),
+                            child: new Material(
+                              elevation: 5.0,
+                              child: TextField(
+                                decoration: InputDecoration(
+                                    labelText: "Search",
+                                    hintText: "Search a router",
+                                    prefixIcon: Icon(Icons.search),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5.0))
+                                    )
+                                ),
+                                controller: myController,
+                              ),
                             ),
-                          );
-                        },
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2
-                        ),
+
+                          ),
+                          new Divider(color: Colors.grey,
+                              height: 1,
+                              thickness: 1),
+                          new Expanded(
+                            child: new GridView.builder(
+                              itemCount: _searchList.length,
+                              itemBuilder: (context, index) {
+                                return new InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(context,
+                                      Routes.routerscr,
+                                      arguments: _searchList[index],
+                                    );
+                                  },
+                                  child: CustomCard(
+                                    title: _searchList[index],
+                                    subtitle: routers.vendor(
+                                        _searchList[index]),
+                                    leading: Icons.router,
+                                  ),
+                                );
+                              },
+                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 4
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-              );
-            }
-            else if (snapshot.hasError) {
-              return Text("${snapshot.error}");
-            }
-            return CircularProgressIndicator();
-          }
-          ),
-          bottomNavigationBar: CustomBottomNavigationBar(pop: true, left_button: "Previous",),
-        )
-    );
+                    );
+                  }
+                  else if (snapshot.hasError) {
+                    return Text("${snapshot.error}");
+                  }
+                  return CircularProgressIndicator();
+                }
+            ),
+            bottomNavigationBar: CustomBottomNavigationBar(
+              pop: true, left_button: "Previous",),
+          )
+      );
+    }
   }
-}
 
 
 class Routers extends StatefulWidget {
